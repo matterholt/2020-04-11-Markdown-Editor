@@ -1,4 +1,5 @@
-import react, { useState } from "react";
+import react, { useState, useEffect } from "react";
+let showdown = require("showdown");
 const MkLayout = (props) => {
   return (
     <div>
@@ -14,7 +15,7 @@ const MkLayout = (props) => {
   );
 };
 
-const MkdownInput = () => {
+const MkdownInput = (props) => {
   const [userMdInput, updateUserMdInput] = useState("NO CHANGE");
 
   // HOW TO CONVERT THE TEXT TO MARKDOWN
@@ -24,6 +25,7 @@ const MkdownInput = () => {
 
   function changeState() {
     let userMkdownText = myRef.current.innerText;
+    props.mkdownConvert(userMkdownText);
   }
 
   return (
@@ -41,16 +43,18 @@ const MkdownInput = () => {
   );
 };
 
-const MkdownOut = () => {
+const MkdownOut = (props) => {
+  function createMarkup() {
+    return { __html: props.mkDwonText };
+  }
   return (
     <MkLayout>
       <h2>Mark Down out</h2>
-      <pre>
-        <span>TEST</span>
-      </pre>
+      <pre dangerouslySetInnerHTML={createMarkup()} />
       <style jsx>{`
         pre {
           color: #f7f7f7;
+          padding: 50px;
           background-color: #333745;
         }
       `}</style>
@@ -60,10 +64,17 @@ const MkdownOut = () => {
 
 const Editor = () => {
   const [mkdownInput, updateMkdownInput] = useState("");
+  function convertInput(userInput) {
+    let converter = new showdown.Converter(),
+      html = converter.makeHtml(userInput);
+    updateMkdownInput(html);
+  }
+
   return (
     <div>
-      <MkdownInput />
-      <MkdownOut />
+      <MkdownInput mkdownConvert={convertInput} />
+
+      <MkdownOut mkDwonText={mkdownInput} />
       <style jsx>
         {`
           div {

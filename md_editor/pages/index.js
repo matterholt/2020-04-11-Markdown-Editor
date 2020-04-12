@@ -32,21 +32,13 @@ const MkdownInput = (props) => {
 
   function changeState() {
     let userMkdownText = myRef.current.innerText;
-
-    console.log(userMkdownText);
-
     props.mkdownConvert(userMkdownText);
   }
 
   return (
     <MkLayout>
       <h2>Mark Down Input</h2>
-      <pre
-        ref={myRef}
-        onKeyUp={changeState}
-        onKeyPress={console.log("connect")}
-        contentEditable="true"
-      ></pre>
+      <pre ref={myRef} onKeyUp={changeState} contentEditable="true"></pre>
 
       <style jsx>{`
         pre {

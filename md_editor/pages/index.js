@@ -46,7 +46,7 @@ function Index() {
 
         `}</style>
       <style global jsx>{`
-        html {
+        body {
           background: black;
           margin: 0;
           padding: 0;

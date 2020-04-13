@@ -27,21 +27,44 @@ const Header = () => {
     </header>
   );
 };
+
 const MkLayout = (props) => {
   return (
     <div>
       {props.children}
       <style jsx>{`
         div {
-          min-width: 49vw;
-          min-height: 60vh;
           margin: 0;
+          width: 50%;
+          min-height: inherit;
         }
       `}</style>
     </div>
   );
 };
+
+const EditorHeader = (props) => {
+  return (
+    <h2 style={props.headerStyle}>
+      {props.editorTitle}
+      <style jsx>{`
+        h2 {
+          text-align: center;
+
+          margin: 0;
+          padding: 10px 0;
+        }
+      `}</style>
+    </h2>
+  );
+};
+
 const MkdownInput = (props) => {
+  const mkInputHeader = {
+    color: "rgb(27, 29, 36)",
+    backgroundColor: "rgb(157, 174, 198)",
+  };
+
   const [userMdInput, updateUserMdInput] = useState("NO CHANGE");
 
   // React Ref allowing to get text from the pre tags
@@ -55,7 +78,7 @@ const MkdownInput = (props) => {
 
   return (
     <MkLayout>
-      <h2>Mark Down Input</h2>
+      <EditorHeader headerStyle={mkInputHeader} editorTitle="Mark Down In" />
       <pre
         ref={mkInputDomRef}
         onKeyUp={changeState}
@@ -65,8 +88,9 @@ const MkdownInput = (props) => {
       <style jsx>{`
         pre {
           padding: 20px;
-          background-color: #e1e7f0;
-          height: 100%;
+          margin: 0;
+          background-color: rgb(135, 139, 153);
+          min-height: inherit;
         }
         pre:focus {
           background-color: #bfcde0;
@@ -75,19 +99,26 @@ const MkdownInput = (props) => {
     </MkLayout>
   );
 };
+
 const MkdownOut = (props) => {
   function createMarkup() {
     return { __html: props.mkDwonText };
   }
+  const mkOutputHeader = {
+    color: "rgb(157, 174, 198)",
+    backgroundColor: "rgb(27, 29, 36)",
+  };
+
   return (
     <MkLayout>
-      <h2>Mark Down out</h2>
+      <EditorHeader headerStyle={mkOutputHeader} editorTitle="Mark Down out" />
       <pre dangerouslySetInnerHTML={createMarkup()} />
       <style jsx>{`
         pre {
-          height: 100%;
-          color: #f7f7f7;
+          color: rgb(157, 174, 198);
+          margin: 0;
           padding: 20px;
+          min-height: inherit;
           background-color: #333745;
         }
       `}</style>
@@ -103,7 +134,7 @@ const Editor = () => {
   }
 
   return (
-    <div>
+    <div className="container__editor">
       <Header />
       <div className="editor">
         <MkdownInput mkdownConvert={convertInput} />
@@ -111,17 +142,29 @@ const Editor = () => {
       </div>
       <style jsx>
         {`
-          div {
+          .container__editor {
             max-width: 100vw;
+            min-height: 60vh;
             display: flex;
             flex-flow: column;
+            background-color: #a2c6c8;
           }
           .editor {
             display: flex;
             flex-flow: row;
+            min-height: inherit;
           }
         `}
       </style>
+      <style global jsx>{`
+        body {
+          background: black;
+          margin: 0;
+          padding: 0;
+          min-width: 100vw;
+          min-height: 100vh;
+        }
+      `}</style>
     </div>
   );
 };

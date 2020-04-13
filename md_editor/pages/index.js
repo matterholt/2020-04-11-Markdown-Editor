@@ -1,109 +1,61 @@
-import react, { useState, useEffect } from "react";
-let showdown = require("showdown");
+import LinkButton from "../components/LinkButton";
 
-const Header = (props) => {
+function Index() {
   return (
-    <div>
-      <h1>Getting the Mark on</h1>
-    </div>
-  );
-};
-const MkLayout = (props) => {
-  return (
-    <div>
-      {props.children}
-      <style jsx>{`
-        div {
-          min-width: 49vw;
-          min-height: 60vh;
-          margin: 0;
-        }
-      `}</style>
-    </div>
-  );
-};
-
-// TODO get key input, to allow a new span for every two enter button
-const MkdownInput = (props) => {
-  const [userMdInput, updateUserMdInput] = useState("NO CHANGE");
-
-  // React Ref allowing to get text from the pre tags
-  const myRef = React.createRef();
-
-  function changeState() {
-    let userMkdownText = myRef.current.innerText;
-    props.mkdownConvert(userMkdownText);
-  }
-
-  return (
-    <MkLayout>
-      <h2>Mark Down Input</h2>
-      <pre ref={myRef} onKeyUp={changeState} contentEditable="true"></pre>
-
-      <style jsx>{`
-        pre {
-          padding: 20px;
-          background-color: #e1e7f0;
-          height: 100%;
-        }
-        pre:focus {
-          background-color: #bfcde0;
-        }
-      `}</style>
-    </MkLayout>
-  );
-};
-
-const MkdownOut = (props) => {
-  function createMarkup() {
-    return { __html: props.mkDwonText };
-  }
-  return (
-    <MkLayout>
-      <h2>Mark Down out</h2>
-      <pre dangerouslySetInnerHTML={createMarkup()} />
-      <style jsx>{`
-        pre {
-          height: 100%;
-          color: #f7f7f7;
-          padding: 20px;
-          background-color: #333745;
-        }
-      `}</style>
-    </MkLayout>
-  );
-};
-
-const Editor = () => {
-  const [mkdownInput, updateMkdownInput] = useState("");
-  function convertInput(userInput) {
-    let converter = new showdown.Converter(),
-      html = converter.makeHtml(userInput);
-    updateMkdownInput(html);
-  }
-
-  return (
-    <div>
-      <Header />
-      <div className="editor">
-        <MkdownInput mkdownConvert={convertInput} />
-        <MkdownOut mkDwonText={mkdownInput} />
+    <header>
+      <div className="landing__header">
+        <h1 className="landing__heading">
+          Simple and Basic <br /> Markdown Converter
+        </h1>
+        <p className="landing__subheading">Let's GO!</p>
+        <LinkButton linkName="Editor" linkPath="/editor" />
       </div>
-      <style jsx>
-        {`
-          div {
+      <style jsx>{`
+          header {
+            min-height: 100vh;
             max-width: 100vw;
+            background-color: #a2c6c8;
             display: flex;
             flex-flow: column;
+            justify-content: center;
+            color: #4a4a4a;
+            margin: 0;
           }
-          .editor {
+          .landing__header {
+            width: 90%;
+            min:height: 50vh;
             display: flex;
-            flex-flow: row;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+            background-color: #f3f8f8;
+            padding: 20px;    
+            text-align: center;
+            border-radius: 5px;
+            font-size: 15px;
           }
-        `}
-      </style>
-    </div>
-  );
-};
+          .landing__heading {
+            font-size: 2em;
+            margin: 0;
+          }
+          .landing__subheading {
+            font-size: 1em;
+            margin: 20px;
+          }
 
-export default Editor;
+        `}</style>
+      <style global jsx>{`
+        html {
+          background: black;
+          margin: 0;
+          padding: 0;
+          min-width: 100vw;
+          min-height: 100vh;
+        }
+      `}</style>
+    </header>
+  );
+}
+
+export default Index;

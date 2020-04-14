@@ -14,9 +14,9 @@ function MkdownInput(props) {
     }
   }
   return (
-    <div>
+    <div className="userInput__container">
       <input
-        className="input__container"
+        className="userInput__entryInput"
         placeholder="Add Content"
         onKeyPress={enterKeyEvent}
         value={userInput}
@@ -24,23 +24,35 @@ function MkdownInput(props) {
           setUserInput(e.target.value);
         }}
       />
+      <Presheet />
       <style jsx>{`
-        .input__container {
+        .userInput__container {
           display: flex;
-          justify-content: center;
-          align-items: center;
-          background: gray;
-          height: 30px;
-          width: 100%;
-          margin-top: 25px;
-          padding: 10px 2px;
-          box-shadow: none;
-          border: none;
-          font-size: 15px;
-          font-weight: bold;
+          flex-flow: column;
         }
-        .input__container:focus {
-          background: lightgray;
+        .userInput__entryInput {
+          background: gray;
+          width: auto;
+          margin: 35px 0;
+          padding: 10px 2px;
+          border: none;
+          font-size: 10px;
+          transition: all 0.2s ease-in-out;
+        }
+
+        .userInput__entryInput:hover {
+          background: #838d8d;
+          border-radius: 2px;
+          transition: all 0.2s ease-in-out;
+          transform: scale(1.2);
+        }
+        .userInput__entryInput:focus {
+          background: #ecf1f1;
+          box-shadow: 3px 4px 5px #1d2929;
+          z-index: 10;
+          border-radius: 2px;
+          transition: all 0.2s ease-in-out;
+          transform: scale(1.2);
         }
       `}</style>
     </div>
@@ -94,6 +106,24 @@ function MkdownOutput(props) {
     </ol>
   );
 }
+
+function Presheet() {
+  return (
+    <div className="sheet__pre">
+      <button> Save</button>
+      <button> New </button>
+      <button> Clear </button>
+      <button> ENTER </button>
+      <style jsx>{`
+        .sheet__pre {
+          height: 450px;
+          background: linear-gradient(#f3f8f8, #243233);
+        }
+      `}</style>
+    </div>
+  );
+}
+
 function OneSheet() {
   const [mdInputList, updateMdInputList] = useState([
     "row one is here",
@@ -110,16 +140,12 @@ function OneSheet() {
         <div className="sheet">
           <MkdownOutput saveMdlines={mdInputList} />
           <MkdownInput sendToMain={upateMdList} />
-          <div className="sheet__pre">
-            <button> Save</button>
-            <button> New </button>
-          </div>
         </div>
       </div>
       <style jsx>
         {`
           .sheet__container {
-            background: #a2c6c8;
+            background: #243233;
             min-height: 100vh;
             max-width: 100vw;
             display: flex;
@@ -127,15 +153,8 @@ function OneSheet() {
           }
           .sheet {
             background: #f3f8f8;
-            width: 375px;
+            width: 70%;
             height: max-content;
-            overflow: hidden;
-          }
-          .sheet__pre {
-            background: #f3f8f8;
-            width: 375px;
-            height: 150px;
-            background: linear-gradient(#f3f8f8, #a2c6c8);
           }
         `}
       </style>

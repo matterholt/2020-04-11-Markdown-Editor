@@ -8,7 +8,10 @@ function Index() {
           Simple and Basic <br /> Markdown Converter
         </h1>
         <p className="landing__subheading">Let's GO!</p>
-        <LinkButton linkName="Editor" linkPath="/editor" />
+        <div>
+          <LinkButton linkName="side by side" linkPath="/editor" />
+          <LinkButton linkName="single page" linkPath="/oneSheet" />
+        </div>
       </div>
       <style jsx>{`
           header {

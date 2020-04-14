@@ -42,7 +42,6 @@ const MkdownInput = (props) => {
   const [userMdInput, updateUserMdInput] = useState("NO CHANGE");
 
   // React Ref allowing to get text from the pre tags
-  // React Ref allowing to get text from the pre tags
   const mkInputDomRef = React.createRef();
 
   function changeState() {

@@ -10,3 +10,5 @@
 4. mapping of the saved markdown file
 5. convert the input to actual markdown lol.Forgot
 6. list ID 13 has height issue and showing background
+
+7. escape button to kick out of the input box

@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+let showdown = require("showdown");
+import parse from "html-react-parser";
+
 import Header from "../components/Header";
 
 function MkdownInput(props) {
@@ -59,10 +62,12 @@ function MkdownInput(props) {
   );
 }
 function MdLine(props) {
+  //let test = new DOMParser().parseFromString();
+  var stringToHTML = parse(props.mdUserLine);
+
   return (
     <li className="mdLine__row" key={props.mdLineNum}>
-      <div className="mdLine__indicator">{props.mdLineNum}</div>
-      <span className="mdLine__string">{props.mdUserLine}</span>
+      <div className="mdLine__string">{stringToHTML}</div>
       <style jsx>{`
         .mdLine__row {
           display: flex;
@@ -82,6 +87,9 @@ function MdLine(props) {
         }
         .mdLine__string {
           align-self: center;
+          padding-left: 10px;
+          padding-right: 10px;
+          margin: 0;
         }
       `}</style>
     </li>
@@ -110,14 +118,20 @@ function MkdownOutput(props) {
 function Presheet() {
   return (
     <div className="sheet__pre">
-      <button> Save</button>
-      <button> New </button>
-      <button> Clear </button>
-      <button> ENTER </button>
+      <div className="sheet__actions">
+        <button> Save</button>
+        <button> New </button>
+        <button> Clear </button>
+        <button> ENTER </button>
+      </div>
+      <div className="sheet__bottom"></div>
       <style jsx>{`
         .sheet__pre {
-          height: 450px;
+          height: 300px;
           background: linear-gradient(#f3f8f8, #243233);
+        }
+        .sheet__actions {
+          height: 150px;
         }
       `}</style>
     </div>
@@ -126,12 +140,19 @@ function Presheet() {
 
 function OneSheet() {
   const [mdInputList, updateMdInputList] = useState([
-    "row one is here",
-    "row two is here",
+    "<p> row one is here </p>",
+    "<p> row two is here </p>",
   ]);
 
   const upateMdList = (userMd) => {
-    updateMdInputList([...mdInputList, userMd]);
+    function convertInput(userInput) {
+      let converter = new showdown.Converter(),
+        html = converter.makeHtml(userInput);
+      return html;
+    }
+    let convertedHtml = convertInput(userMd);
+
+    updateMdInputList([...mdInputList, convertedHtml]);
   };
   return (
     <div>

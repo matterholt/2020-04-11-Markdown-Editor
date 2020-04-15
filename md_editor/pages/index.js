@@ -9,8 +9,7 @@ function Index() {
         </h1>
         <p className="landing__subheading">Let's GO!</p>
         <div>
-          <LinkButton linkName="side by side" linkPath="/editor" />
-          <LinkButton linkName="single page" linkPath="/oneSheet" />
+          <LinkButton linkName="Editor" linkPath="/oneSheet" />
         </div>
       </div>
       <style jsx>{`

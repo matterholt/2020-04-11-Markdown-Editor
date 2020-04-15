@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 let showdown = require("showdown");
-import parse from "html-react-parser";
 
 import Header from "../components/Header";
+import Footer from "../components/Footer";
+import EditorActions from "../components/EditorActions";
 
 function MkdownInput(props) {
   const [userInput, setUserInput] = useState("");
@@ -27,7 +28,8 @@ function MkdownInput(props) {
           setUserInput(e.target.value);
         }}
       />
-      <Presheet />
+      <EditorActions />
+      <Footer />
       <style jsx>{`
         .userInput__container {
           display: flex;
@@ -62,12 +64,19 @@ function MkdownInput(props) {
   );
 }
 function MdLine(props) {
-  //let test = new DOMParser().parseFromString();
-  var stringToHTML = parse(props.mdUserLine);
+  var stringToHTML = props.mdUserLine;
+  function createInnerHtml() {
+    return {
+      __html: stringToHTML,
+    };
+  }
 
   return (
     <li className="mdLine__row" key={props.mdLineNum}>
-      <div className="mdLine__string">{stringToHTML}</div>
+      <div
+        className="mdLine__string"
+        dangerouslySetInnerHTML={createInnerHtml()}
+      ></div>
       <style jsx>{`
         .mdLine__row {
           display: flex;
@@ -115,29 +124,6 @@ function MkdownOutput(props) {
   );
 }
 
-function Presheet() {
-  return (
-    <div className="sheet__pre">
-      <div className="sheet__actions">
-        <button> Save</button>
-        <button> New </button>
-        <button> Clear </button>
-        <button> ENTER </button>
-      </div>
-      <div className="sheet__bottom"></div>
-      <style jsx>{`
-        .sheet__pre {
-          height: 300px;
-          background: linear-gradient(#f3f8f8, #243233);
-        }
-        .sheet__actions {
-          height: 150px;
-        }
-      `}</style>
-    </div>
-  );
-}
-
 function OneSheet() {
   const [mdInputList, updateMdInputList] = useState([
     "<p> row one is here </p>",
@@ -176,6 +162,7 @@ function OneSheet() {
             background: #f3f8f8;
             width: 70%;
             height: max-content;
+            margin-top: 20px;
           }
         `}
       </style>

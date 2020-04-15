@@ -5,10 +5,6 @@ const Header = () => {
     <header>
       <LinkButton linkName="Home" linkPath="/" />
       <h1>Getting the Mark on</h1>
-      <div className="header__features">
-        <button> New</button>
-        <button> Print</button>
-      </div>
       <style jsx>{`
         header {
           border-bottom: solid black 2px;

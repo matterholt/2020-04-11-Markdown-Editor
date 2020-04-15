@@ -12,3 +12,4 @@
 6. list ID 13 has height issue and showing background
 
 7. escape button to kick out of the input box
+8. Style on the p tags, is a bit large and out of

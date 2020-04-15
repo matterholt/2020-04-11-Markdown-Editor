@@ -1,11 +1,15 @@
 export default function Footer() {
   return (
-    <div className="sheet__pre">
-      <div className="sheet__bottom"></div>
+    <div className="sheet__bottom">
+      <p> You have found the bottom lol</p>
       <style jsx>{`
-        .sheet__pre {
-          height: 300px;
-          background: linear-gradient(#f3f8f8, #243233);
+        p {
+          margin: 0;
+        }
+        .sheet__bottom {
+          background-color: #d4dada;
+          height: 125px;
+          width: 100%;
         }
       `}</style>
     </div>

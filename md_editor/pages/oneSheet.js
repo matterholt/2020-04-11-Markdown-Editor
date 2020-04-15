@@ -28,8 +28,7 @@ function MkdownInput(props) {
           setUserInput(e.target.value);
         }}
       />
-      <EditorActions />
-      <Footer />
+
       <style jsx>{`
         .userInput__container {
           display: flex;
@@ -63,6 +62,7 @@ function MkdownInput(props) {
     </div>
   );
 }
+
 function MdLine(props) {
   var stringToHTML = props.mdUserLine;
   function createInnerHtml() {
@@ -104,6 +104,7 @@ function MdLine(props) {
     </li>
   );
 }
+
 function MkdownOutput(props) {
   const userMarkdowns = props.saveMdlines;
 
@@ -147,8 +148,13 @@ function OneSheet() {
         <div className="sheet">
           <MkdownOutput saveMdlines={mdInputList} />
           <MkdownInput sendToMain={upateMdList} />
+          <EditorActions FullMkList={mdInputList} />
+          {/** Not don't like this but it design-> should be a better way */}
+          <div className="sheet__pre"></div>
         </div>
       </div>
+
+      <Footer />
       <style jsx>
         {`
           .sheet__container {
@@ -163,6 +169,10 @@ function OneSheet() {
             width: 70%;
             height: max-content;
             margin-top: 20px;
+          }
+          .sheet__pre {
+            height: 200px;
+            background: linear-gradient(#f3f8f8, #243233);
           }
         `}
       </style>

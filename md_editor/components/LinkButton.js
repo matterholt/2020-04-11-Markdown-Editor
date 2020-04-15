@@ -21,7 +21,6 @@ const LinkButton = (props) => {
         .landing__editorLink:hover {
           cursor: pointer;
           transform: scale(1.1);
-          box-shadow: 8px 5px 10px #cdcdcd;
         }
       `}</style>
     </>

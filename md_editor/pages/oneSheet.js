@@ -88,7 +88,8 @@ function MdLine(props) {
           display: flex;
           margin: 2px 0;
           overflow-wrap: break-word;
-          background-color: #b9cccc;
+          border-bottom: solid 2px #b9cccc30;
+          min-height: 51px;
         }
         .mdLine__indicator {
           padding: 5px;
@@ -104,6 +105,8 @@ function MdLine(props) {
           align-self: center;
           padding-left: 10px;
           padding-right: 10px;
+          padding-top: 0;
+          padding-bottom: 0;
           margin: 0;
         }
       `}</style>
@@ -133,10 +136,11 @@ function MkdownOutput(props) {
 
 function OneSheet() {
   const [mdInputList, updateMdInputList] = useState([
-    "<p> row one is here </p>",
+    "<h1> row one is here </h1>",
     "<p> row two is here </p>",
     "",
-    "9",
+    "<p>A</p>",
+    "<p>9</p>",
   ]);
 
   const upateMdList = (userMd) => {

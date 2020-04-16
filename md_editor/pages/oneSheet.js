@@ -4,10 +4,12 @@ let showdown = require("showdown");
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import EditorActions from "../components/EditorActions";
+import EditorStats from "../components/EditorStats";
 import MdCompileLine from "../components/MdCompileLine";
+import NewEmptyDoc from "../components/NewEmptyDoc";
 
 function MkdownInput(props) {
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState();
   const refInput = React.createRef();
 
   function enterKeyEvent() {
@@ -25,11 +27,12 @@ function MkdownInput(props) {
   }
   return (
     <div className="userInput__container">
+      <EditorActions clearList={props.clearList} />
+      <span className="userInput__helper">Add text Below</span>
       <textarea
         ref={refInput}
         className="userInput__entryInput"
-        rows="1"
-        placeholder="Add Content"
+        rows="2"
         onKeyPress={enterKeyEvent}
         value={userInput}
         onChange={(e) => {
@@ -41,50 +44,44 @@ function MkdownInput(props) {
         .userInput__container {
           display: flex;
           flex-flow: column;
+          background: #838d8d;
+          margin-top: 10px;
         }
         .userInput__entryInput {
           background: gray;
           width: auto;
-          margin: 35px 0;
-          padding: 10px 2px;
+          margin: 0;
+          padding: 10px;
           border: none;
           font-size: 12px;
           transition: all 0.2s ease-in-out;
           resize: none;
+          color: white;
         }
-
         .userInput__entryInput:hover {
           background: #838d8d;
           border-radius: 2px;
           transition: all 0.2s ease-in-out;
-          transform: scale(1.2);
+          transform: scale(1.05);
         }
         .userInput__entryInput:focus {
           background: #ecf1f1;
+          color: black;
           box-shadow: 3px 4px 5px #1d2929;
           z-index: 10;
           border-radius: 2px;
+          border: none;
+          outline: none;
           transition: all 0.2s ease-in-out;
-          transform: scale(1.2);
+          transform: scale(1.05);
           overflow-wrap: break-word;
         }
-      `}</style>
-    </div>
-  );
-}
-
-function NewEmptyDoc() {
-  return (
-    <div>
-      <h1>
-        Nothing Here! <br />
-        Go to Town
-      </h1>
-
-      <style jsx>{`
-        h1 {
-          color: #a4bbbb;
+        .userInput__helper {
+          width: 100%;
+          font-size: 10px;
           text-align: center;
+          background-color: #adb4b4;
+          color: gray;
         }
       `}</style>
     </div>
@@ -156,8 +153,10 @@ function OneSheet() {
       <main className="sheet__container">
         <div className="sheet">
           <MkdownOutput saveMdlines={mdInputList} />
-          <MkdownInput sendToMain={upateMdList} />
-          <EditorActions clearList={clearMkDownList} FullMkList={mdInputList} />
+
+          <MkdownInput sendToMain={upateMdList} clearList={clearMkDownList} />
+
+          <EditorStats FullMkList={mdInputList} />
           {/** Not don't like this but it design-> should be a better way */}
           <div className="sheet__pre"></div>
         </div>

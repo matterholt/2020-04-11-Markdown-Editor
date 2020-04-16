@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import DocCounterCard from "./DocCounterCard";
+
 export default function EditorActions(props) {
   const [documentRowCount, updateDocRowCount] = useState(0);
   const [documentWordCount, updateDocWordCount] = useState(0);
@@ -80,22 +82,18 @@ export default function EditorActions(props) {
 
   return (
     <div className="editor__stats">
-      <p>
-        Row Count:<span>{documentRowCount}</span>
-      </p>
-      <p>
-        Word Count: <span>{documentWordCount}</span>
-      </p>
-      <p>
-        Letter Count: <span>{documentLetterCount}</span>
-      </p>
-      <p>
-        Tags: <span>TBD</span>
-      </p>
+      <DocCounterCard countName="Rows #" countAmount={documentRowCount} />
+      <DocCounterCard countName="Word #" countAmount={documentWordCount} />
+      <DocCounterCard countName="Letter #" countAmount={documentLetterCount} />
+      <DocCounterCard countName="Tags #" countAmount="T.B.D" />
+
       <style jsx>{`
         .editor__stats {
+          min-height: 200px;
+          margin-top: 50px;
+          background: linear-gradient(#f3f8f8, #243233);
           display: flex;
-          flex-flow: column;
+          justify-content: space-evenly;
         }
       `}</style>
     </div>

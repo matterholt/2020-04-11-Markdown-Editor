@@ -16,7 +16,7 @@ function Index() {
           header {
             min-height: 100vh;
             max-width: 100vw;
-            background-color: #a2c6c8;
+            background-color: #243233;
             display: flex;
             flex-flow: column;
             justify-content: center;

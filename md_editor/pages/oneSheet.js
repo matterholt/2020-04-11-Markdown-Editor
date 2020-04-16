@@ -161,8 +161,6 @@ function OneSheet() {
           <MkdownInput sendToMain={upateMdList} clearList={clearMkDownList} />
 
           <EditorStats FullMkList={mdInputList} />
-          {/** Not don't like this but it design-> should be a better way */}
-          <div className="sheet__pre"></div>
         </div>
       </main>
 
@@ -181,10 +179,6 @@ function OneSheet() {
             width: 70%;
             height: max-content;
             margin-top: 20px;
-          }
-          .sheet__pre {
-            height: 200px;
-            background: linear-gradient(#f3f8f8, #243233);
           }
         `}
       </style>

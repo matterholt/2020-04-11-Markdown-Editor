@@ -70,53 +70,58 @@ function MkdownInput(props) {
   );
 }
 
-function MkdownOutput(props) {
-  const userMarkdowns = props.saveMdlines;
-
+function NewEmptyDoc() {
   return (
-    <ol>
-      {userMarkdowns.map((mdUserLine, mdLineNum) => (
-        <MdCompileLine mdUserLine={mdUserLine} mdLineNum={mdLineNum} />
-      ))}
-      <style jsx>{`
-        ol {
-          margin: 0;
-          padding: 10px;
-          list-style: none;
-          background: #f3f8f8;
-        }
-      `}</style>
-      <style global jsx>{`
-        .mdLine__rowList {
-          display: flex;
-          margin: 2px 0;
-          overflow-wrap: break-word;
-          border-bottom: solid 2px #b9cccc30;
-          min-height: 51px;
-        }
-        .mdLine__string {
-          align-self: center;
-          padding-left: 10px;
-          padding-right: 10px;
-        }
-        .mdLine__string * {
-          padding-top: 0;
-          padding-bottom: 0;
-          margin: 0;
-        }
-      `}</style>
-    </ol>
+    <div>
+      <h1>Nothing Here! Go to Town</h1>
+    </div>
   );
 }
 
+function MkdownOutput(props) {
+  const userMarkdowns = props.saveMdlines;
+  if (userMarkdowns != 0) {
+    return (
+      <ol>
+        {userMarkdowns.map((mdUserLine, mdLineNum) => (
+          <MdCompileLine mdUserLine={mdUserLine} mdLineNum={mdLineNum} />
+        ))}
+        <style jsx>{`
+          ol {
+            margin: 0;
+            padding: 10px;
+            list-style: none;
+            background: #f3f8f8;
+          }
+        `}</style>
+        <style global jsx>{`
+          .mdLine__rowList {
+            display: flex;
+            margin: 2px 0;
+            overflow-wrap: break-word;
+            border-bottom: solid 2px #b9cccc30;
+            min-height: 51px;
+          }
+          .mdLine__string {
+            align-self: center;
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+          .mdLine__string * {
+            padding-top: 0;
+            padding-bottom: 0;
+            margin: 0;
+          }
+        `}</style>
+      </ol>
+    );
+  } else {
+    return <NewEmptyDoc />;
+  }
+}
+
 function OneSheet() {
-  const [mdInputList, updateMdInputList] = useState([
-    "<h1> row one is here </h1>",
-    "<p> row two is here </p>",
-    "",
-    "<p>A</p>",
-    "<p>9</p>",
-  ]);
+  const [mdInputList, updateMdInputList] = useState([]);
 
   const upateMdList = (userMd) => {
     function convertInput(userInput) {
@@ -125,13 +130,13 @@ function OneSheet() {
       return html;
     }
     let convertedHtml = convertInput(userMd);
-
     updateMdInputList([...mdInputList, convertedHtml]);
   };
 
   const clearMkDownList = () => {
     updateMdInputList([]);
   };
+
   return (
     <div>
       <Header />

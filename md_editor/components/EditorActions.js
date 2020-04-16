@@ -58,14 +58,16 @@ export default function EditorActions(props) {
   }
 
   useEffect(() => {
-    const cleanDocString = props.FullMkList.filter((string) => {
-      return string != "";
-    });
+    if (props.FullMkList.length != 0) {
+      const cleanDocString = props.FullMkList.filter((string) => {
+        return string != "";
+      });
 
-    const docCounts = docStats(cleanDocString);
-    updateDocRowCount(props.FullMkList.length);
-    updateDocWordCount(docCounts.wordCount);
-    updateLetterCount(docCounts.letterCount);
+      const docCounts = docStats(cleanDocString);
+      updateDocRowCount(props.FullMkList.length);
+      updateDocWordCount(docCounts.wordCount);
+      updateLetterCount(docCounts.letterCount);
+    }
   });
 
   return (

@@ -25,7 +25,7 @@ function MkdownInput(props) {
   }
   return (
     <div className="userInput__container">
-      <input
+      <textarea
         ref={refInput}
         className="userInput__entryInput"
         placeholder="Add Content"
@@ -47,7 +47,7 @@ function MkdownInput(props) {
           margin: 35px 0;
           padding: 10px 2px;
           border: none;
-          font-size: 10px;
+          font-size: 12px;
           transition: all 0.2s ease-in-out;
         }
 
@@ -64,6 +64,7 @@ function MkdownInput(props) {
           border-radius: 2px;
           transition: all 0.2s ease-in-out;
           transform: scale(1.2);
+          overflow-wrap: break-word;
         }
       `}</style>
     </div>
@@ -73,7 +74,17 @@ function MkdownInput(props) {
 function NewEmptyDoc() {
   return (
     <div>
-      <h1>Nothing Here! Go to Town</h1>
+      <h1>
+        Nothing Here! <br />
+        Go to Town
+      </h1>
+
+      <style jsx>{`
+        h1 {
+          color: #a4bbbb;
+          text-align: center;
+        }
+      `}</style>
     </div>
   );
 }
@@ -100,7 +111,7 @@ function MkdownOutput(props) {
             margin: 2px 0;
             overflow-wrap: break-word;
             border-bottom: solid 2px #b9cccc30;
-            min-height: 51px;
+            min-height: 35px;
           }
           .mdLine__string {
             align-self: center;

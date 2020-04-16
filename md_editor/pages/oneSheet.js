@@ -77,9 +77,9 @@ function MkdownInput(props) {
           overflow-wrap: break-word;
         }
         .userInput__helper {
-          width: 100%;
           font-size: 10px;
           text-align: center;
+          padding: 5px 0;
           background-color: #adb4b4;
           color: gray;
         }

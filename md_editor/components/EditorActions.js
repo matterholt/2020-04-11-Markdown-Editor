@@ -67,6 +67,10 @@ export default function EditorActions(props) {
       updateDocRowCount(props.FullMkList.length);
       updateDocWordCount(docCounts.wordCount);
       updateLetterCount(docCounts.letterCount);
+    } else {
+      updateDocRowCount(0);
+      updateDocWordCount(0);
+      updateLetterCount(0);
     }
   });
 

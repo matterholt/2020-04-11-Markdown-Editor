@@ -12,7 +12,7 @@ export default function EditorActions(props) {
   function wordsInRow(mdString) {
     // regex returning an array
     // index 0 will be the full html string
-    // index 1 will be the group with out tag
+    // index 1 will be the group with out tag'
     const stingGroup = />(.*)</.exec(mdString);
     const wordCount = stingGroup[1].trim().split(" ");
     return wordCount;
@@ -62,7 +62,11 @@ export default function EditorActions(props) {
   }
 
   useEffect(() => {
-    const docCounts = docStats(props.FullMkList);
+    const cleanDocString = props.FullMkList.filter((string) => {
+      return string != "";
+    });
+
+    const docCounts = docStats(cleanDocString);
     updateDocRowCount(docCounts.rowLength);
     updateDocWordCount(docCounts.wordCount);
     updateLetterCount(docCounts.letterCount);

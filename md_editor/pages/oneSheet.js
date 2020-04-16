@@ -7,6 +7,7 @@ import EditorActions from "../components/EditorActions";
 
 function MkdownInput(props) {
   const [userInput, setUserInput] = useState("");
+  const refInput = React.createRef();
 
   function enterKeyEvent() {
     // if enter key is hit then will clear state of input
@@ -15,11 +16,16 @@ function MkdownInput(props) {
     if (keyCode === 13) {
       props.sendToMain(userInput);
       setUserInput("");
+      refInput.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     }
   }
   return (
     <div className="userInput__container">
       <input
+        ref={refInput}
         className="userInput__entryInput"
         placeholder="Add Content"
         onKeyPress={enterKeyEvent}
@@ -129,6 +135,8 @@ function OneSheet() {
   const [mdInputList, updateMdInputList] = useState([
     "<p> row one is here </p>",
     "<p> row two is here </p>",
+    "",
+    "9",
   ]);
 
   const upateMdList = (userMd) => {
@@ -144,7 +152,7 @@ function OneSheet() {
   return (
     <div>
       <Header />
-      <div className="sheet__container">
+      <main className="sheet__container">
         <div className="sheet">
           <MkdownOutput saveMdlines={mdInputList} />
           <MkdownInput sendToMain={upateMdList} />
@@ -152,7 +160,7 @@ function OneSheet() {
           {/** Not don't like this but it design-> should be a better way */}
           <div className="sheet__pre"></div>
         </div>
-      </div>
+      </main>
 
       <Footer />
       <style jsx>

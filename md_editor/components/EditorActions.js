@@ -58,12 +58,16 @@ export default function EditorActions(props) {
   }
 
   useEffect(() => {
+    console.log(props.FullMkList);
     if (props.FullMkList.length != 0) {
-      const cleanDocString = props.FullMkList.filter((string) => {
+      const removeEmptyIndex = props.FullMkList.filter((string) => {
         return string != "";
       });
+      const replaceNewLine = removeEmptyIndex.map((x) =>
+        x.replace(/(\r\n|\n|\r)/gm, " ")
+      );
 
-      const docCounts = docStats(cleanDocString);
+      const docCounts = docStats(replaceNewLine);
       updateDocRowCount(props.FullMkList.length);
       updateDocWordCount(docCounts.wordCount);
       updateLetterCount(docCounts.letterCount);

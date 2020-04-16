@@ -28,6 +28,7 @@ function MkdownInput(props) {
       <textarea
         ref={refInput}
         className="userInput__entryInput"
+        rows="1"
         placeholder="Add Content"
         onKeyPress={enterKeyEvent}
         value={userInput}
@@ -49,6 +50,7 @@ function MkdownInput(props) {
           border: none;
           font-size: 12px;
           transition: all 0.2s ease-in-out;
+          resize: none;
         }
 
         .userInput__entryInput:hover {

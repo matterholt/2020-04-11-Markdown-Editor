@@ -2,22 +2,14 @@ import React, { useState, useEffect } from "react";
 export default function EditorActions(props) {
   return (
     <div className="editor__actions">
-      <div className="editor__actionButton">
-        <button onClick={props.clearList}> Clear </button>
-        <button> ENTER </button>
-      </div>
+      <button onClick={props.clearList}> CLEAR </button>
+      <button onClick={props.enterAction}> ENTER </button>
 
       <style jsx>{`
-        .sheet__actions {
+        .editor__actions {
           background-color: #f3f8f8;
           display: flex;
-          flex-flow: column;
-          justify-content: space-evenly;
-        }
-
-        .editor__actionButton {
-          display: flex;
-          justify-content: space-evenly;
+          justify-content: end;
         }
       `}</style>
     </div>

@@ -59,7 +59,7 @@ export default function EditorActions(props) {
 
   useEffect(() => {
     console.log(props.FullMkList);
-    if (props.FullMkList.length != 0) {
+    if (props.FullMkList.length != 0 && props.FullMkList[0] != undefined) {
       const removeEmptyIndex = props.FullMkList.filter((string) => {
         return string != "";
       });
@@ -79,26 +79,20 @@ export default function EditorActions(props) {
   });
 
   return (
-    <div className="editor__actions">
-      <div className="editor__stats">
-        <p>
-          Row Count:<span>{documentRowCount}</span>
-        </p>
-        <p>
-          Word Count: <span>{documentWordCount}</span>
-        </p>
-        <p>
-          Letter Count: <span>{documentLetterCount}</span>
-        </p>
-      </div>
-
+    <div className="editor__stats">
+      <p>
+        Row Count:<span>{documentRowCount}</span>
+      </p>
+      <p>
+        Word Count: <span>{documentWordCount}</span>
+      </p>
+      <p>
+        Letter Count: <span>{documentLetterCount}</span>
+      </p>
+      <p>
+        Tags: <span>TBD</span>
+      </p>
       <style jsx>{`
-        .sheet__actions {
-          background-color: #f3f8f8;
-          display: flex;
-          flex-flow: column;
-          justify-content: space-evenly;
-        }
         .editor__stats {
           display: flex;
           flex-flow: column;

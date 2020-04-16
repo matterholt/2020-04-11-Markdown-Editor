@@ -8,7 +8,7 @@ export default function Footer() {
         }
         .sheet__bottom {
           background-color: #d4dada;
-          height: 125px;
+          height: 50px;
           width: 100%;
         }
       `}</style>

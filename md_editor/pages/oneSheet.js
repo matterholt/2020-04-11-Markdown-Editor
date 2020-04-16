@@ -12,26 +12,30 @@ function MkdownInput(props) {
   const [userInput, setUserInput] = useState();
   const refInput = React.createRef();
 
+  function actionEnter() {
+    props.sendToMain(userInput);
+    setUserInput("");
+    refInput.current.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
   function enterKeyEvent() {
     // if enter key is hit then will clear state of input
     //  and send string to the out put
     let keyCode = event.keyCode;
     if (keyCode === 13) {
-      props.sendToMain(userInput);
-      setUserInput("");
-      refInput.current.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
+      actionEnter();
     }
   }
   return (
     <div className="userInput__container">
-      <EditorActions clearList={props.clearList} />
+      <EditorActions clearList={props.clearList} enterAction={actionEnter} />
       <span className="userInput__helper">Add text Below</span>
       <textarea
         ref={refInput}
         className="userInput__entryInput"
+        placeholder="ADD CONTENT"
         rows="2"
         onKeyPress={enterKeyEvent}
         value={userInput}
@@ -48,7 +52,7 @@ function MkdownInput(props) {
           margin-top: 10px;
         }
         .userInput__entryInput {
-          background: gray;
+          background: #d0d3d3;
           width: auto;
           margin: 0;
           padding: 10px;
@@ -56,7 +60,7 @@ function MkdownInput(props) {
           font-size: 12px;
           transition: all 0.2s ease-in-out;
           resize: none;
-          color: white;
+          color: black;
         }
         .userInput__entryInput:hover {
           background: #838d8d;

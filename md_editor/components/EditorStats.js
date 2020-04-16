@@ -32,6 +32,7 @@ export default function EditorActions(props) {
     const totalNumbWordCount = reduceNumberCount(numWordsPerRow);
     return totalNumbWordCount;
   }
+
   function letterPerDoc(mdInput) {
     const letterPerRow = mdInput.map((x) => x.join("").length);
     const letterTotal = reduceNumberCount(letterPerRow);
@@ -58,7 +59,6 @@ export default function EditorActions(props) {
   }
 
   useEffect(() => {
-    console.log(props.FullMkList);
     if (props.FullMkList.length != 0 && props.FullMkList[0] != undefined) {
       const removeEmptyIndex = props.FullMkList.filter((string) => {
         return string != "";

@@ -148,7 +148,7 @@ function OneSheet() {
   };
 
   const clearMkDownList = () => {
-    updateMdInputList([]);
+    updateMdInputList([undefined]);
   };
 
   return (

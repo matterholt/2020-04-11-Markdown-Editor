@@ -44,9 +44,6 @@ export default function EditorActions(props) {
       return wordsInRow(x);
     });
 
-    // Number of rows
-    const mdRowCount = htmlInputString.length;
-
     // Number of Word in Document
     const numbOfDocWords = wordsPerDoc(htmlInputString);
 
@@ -54,7 +51,6 @@ export default function EditorActions(props) {
     const numbOfLetters = letterPerDoc(htmlInputString);
 
     const GOAL = {
-      rowLength: mdRowCount,
       wordCount: numbOfDocWords,
       letterCount: numbOfLetters,
     };
@@ -67,7 +63,7 @@ export default function EditorActions(props) {
     });
 
     const docCounts = docStats(cleanDocString);
-    updateDocRowCount(docCounts.rowLength);
+    updateDocRowCount(props.FullMkList.length);
     updateDocWordCount(docCounts.wordCount);
     updateLetterCount(docCounts.letterCount);
   });

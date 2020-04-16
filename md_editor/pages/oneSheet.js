@@ -4,6 +4,7 @@ let showdown = require("showdown");
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import EditorActions from "../components/EditorActions";
+import MdCompileLine from "../components/MdCompileLine";
 
 function MkdownInput(props) {
   const [userInput, setUserInput] = useState("");
@@ -69,65 +70,39 @@ function MkdownInput(props) {
   );
 }
 
-function MdLine(props) {
-  var stringToHTML = props.mdUserLine;
-  function createInnerHtml() {
-    return {
-      __html: stringToHTML,
-    };
-  }
-
-  return (
-    <li className="mdLine__row" key={props.mdLineNum}>
-      <div
-        className="mdLine__string"
-        dangerouslySetInnerHTML={createInnerHtml()}
-      ></div>
-      <style jsx>{`
-        .mdLine__row {
-          display: flex;
-          margin: 2px 0;
-          overflow-wrap: break-word;
-          border-bottom: solid 2px #b9cccc30;
-          min-height: 51px;
-        }
-        .mdLine__indicator {
-          padding: 5px;
-          color: #4a7677;
-          min-width: 16px;
-          margin-right: 5px;
-          background-color: #d2dfdf;
-          text-align: center;
-          height: 100%;
-          align-self: center;
-        }
-        .mdLine__string {
-          align-self: center;
-          padding-left: 10px;
-          padding-right: 10px;
-          padding-top: 0;
-          padding-bottom: 0;
-          margin: 0;
-        }
-      `}</style>
-    </li>
-  );
-}
-
 function MkdownOutput(props) {
   const userMarkdowns = props.saveMdlines;
 
   return (
     <ol>
       {userMarkdowns.map((mdUserLine, mdLineNum) => (
-        <MdLine mdUserLine={mdUserLine} mdLineNum={mdLineNum} />
+        <MdCompileLine mdUserLine={mdUserLine} mdLineNum={mdLineNum} />
       ))}
       <style jsx>{`
         ol {
           margin: 0;
-          padding: 0;
+          padding: 10px;
           list-style: none;
           background: #f3f8f8;
+        }
+      `}</style>
+      <style global jsx>{`
+        .mdLine__rowList {
+          display: flex;
+          margin: 2px 0;
+          overflow-wrap: break-word;
+          border-bottom: solid 2px #b9cccc30;
+          min-height: 51px;
+        }
+        .mdLine__string {
+          align-self: center;
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+        .mdLine__string * {
+          padding-top: 0;
+          padding-bottom: 0;
+          margin: 0;
         }
       `}</style>
     </ol>

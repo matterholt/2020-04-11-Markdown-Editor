@@ -128,6 +128,10 @@ function OneSheet() {
 
     updateMdInputList([...mdInputList, convertedHtml]);
   };
+
+  const clearMkDownList = () => {
+    updateMdInputList([]);
+  };
   return (
     <div>
       <Header />
@@ -135,7 +139,7 @@ function OneSheet() {
         <div className="sheet">
           <MkdownOutput saveMdlines={mdInputList} />
           <MkdownInput sendToMain={upateMdList} />
-          <EditorActions FullMkList={mdInputList} />
+          <EditorActions clearList={clearMkDownList} FullMkList={mdInputList} />
           {/** Not don't like this but it design-> should be a better way */}
           <div className="sheet__pre"></div>
         </div>

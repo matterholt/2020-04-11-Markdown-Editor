@@ -71,7 +71,7 @@ export default function EditorActions(props) {
   return (
     <div className="editor__actions">
       <div className="editor__actionButton">
-        <button> Clear </button>
+        <button onClick={props.clearList}> Clear </button>
         <button> ENTER </button>
       </div>
       <div className="editor__stats">

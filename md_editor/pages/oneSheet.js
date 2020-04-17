@@ -29,6 +29,7 @@ function MkdownInput(props) {
       <input
         type="text"
         name="userEntryInput"
+        spellcheck="true"
         value={userInput}
         onChange={(e) => setUserInput(e.target.value)}
         ref={refInput}
@@ -42,13 +43,11 @@ function MkdownInput(props) {
         .userInput__container {
           display: flex;
           flex-flow: column;
-          background: #838d8d;
           margin-top: 10px;
         }
         .userInput__entryInput {
-          background: #d0d3d3;
           width: auto;
-          margin: 0;
+          margin: 10px 0;
           padding: 10px;
           border: none;
           font-size: 12px;

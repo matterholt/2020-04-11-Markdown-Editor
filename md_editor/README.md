@@ -14,6 +14,7 @@
 8. ~~Style on the p tags, is a bit large and out of~~
 
 9. Add counter for the tags that are placed in the document
+10. since it is an input, then may be able to set up some paras and have it return a specific color once the hash is entered.
 
 ## Bonus points
 

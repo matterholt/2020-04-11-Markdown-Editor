@@ -60,7 +60,7 @@ export default function EditorActions(props) {
       updateDocRowCount(props.FullMkList.length);
       updateDocWordCount(docCounts.wordCount);
       updateLetterCount(docCounts.letterCount);
-    } else [console.log("empty")];
+    }
   }, [docCheckedList]);
 
   return (

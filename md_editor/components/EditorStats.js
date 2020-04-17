@@ -120,6 +120,7 @@ export default function EditorActions(props) {
       updateDocWordCount(docCounts.wordCount);
       updateLetterCount(docCounts.letterCount);
     } else {
+      updateDocTags({});
       updateDocRowCount(0);
       updateDocWordCount(0);
       updateLetterCount(0);

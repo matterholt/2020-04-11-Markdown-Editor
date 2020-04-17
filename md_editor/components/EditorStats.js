@@ -5,9 +5,10 @@ export default function EditorActions(props) {
   const [documentRowCount, updateDocRowCount] = useState(0);
   const [documentWordCount, updateDocWordCount] = useState(0);
   const [documentLetterCount, updateLetterCount] = useState(0);
+  const [documentTags, updateDocTags] = useState([]);
 
-  function htmlTagCount(mdString) {
-    const htmlTag = /<(\w)>/.exec(mdString);
+  function htmlTags(mdString) {
+    const htmlTag = /<(\w+)/.exec(mdString);
     return htmlTag[1];
   }
 
@@ -60,7 +61,12 @@ export default function EditorActions(props) {
     return GOAL;
   }
 
+  function tagOBject() {
+    // make the tag
+  }
+
   useEffect(() => {
+    console.log(props.FullMkList);
     if (props.FullMkList.length != 0 && props.FullMkList[0] != undefined) {
       const removeEmptyIndex = props.FullMkList.filter((string) => {
         return string != "";
@@ -68,6 +74,10 @@ export default function EditorActions(props) {
       const replaceNewLine = removeEmptyIndex.map((x) =>
         x.replace(/(\r\n|\n|\r)/gm, " ")
       );
+      const htmlTagslist = replaceNewLine.map((htmlString) => {
+        return htmlTags(htmlString);
+      });
+      console.log(htmlTagslist);
 
       const docCounts = docStats(replaceNewLine);
       updateDocRowCount(props.FullMkList.length);
@@ -85,15 +95,19 @@ export default function EditorActions(props) {
       <DocCounterCard countName="Rows #" countAmount={documentRowCount} />
       <DocCounterCard countName="Word #" countAmount={documentWordCount} />
       <DocCounterCard countName="Letter #" countAmount={documentLetterCount} />
-      <DocCounterCard countName="Tags #" countAmount="T.B.D" />
-
+      <div>
+        <DocCounterCard countName="Tags #" countAmount="T.B.D" />
+      </div>
       <style jsx>{`
         .editor__stats {
           min-height: 200px;
           margin-top: 50px;
           background: linear-gradient(#f3f8f8, #243233);
+          background: #f3f8f8;
+
           display: flex;
           justify-content: space-evenly;
+          flex-wrap: wrap;
         }
       `}</style>
     </div>

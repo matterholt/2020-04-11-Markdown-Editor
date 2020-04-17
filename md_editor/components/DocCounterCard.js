@@ -26,6 +26,7 @@ export default function DocCounterCard(props) {
           min-width: 70px;
           color: #243233;
           font-weight: 900;
+          margin: 5px;
         }
       `}</style>
     </div>

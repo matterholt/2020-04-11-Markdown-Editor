@@ -14,3 +14,13 @@
 8. ~~Style on the p tags, is a bit large and out of~~
 
 9. Add counter for the tags that are placed in the document
+
+## Bonus points
+
+- Live preview (where your edits in the input area automatically show up in the preview panel)
+- Syntax highlighting for input area
+- Selectable themes for input area
+- Selectable themes for preview panel
+- Print to PDF
+- Locally installed (using Electron, for example)
+- Responsive design

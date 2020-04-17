@@ -11,10 +11,9 @@ import NewEmptyDoc from "../components/NewEmptyDoc";
 function MkdownInput(props) {
   const [userInput, setUserInput] = useState();
   const refInput = React.createRef();
-
-  function actionEnter() {
+  function handleSubmit(event) {
+    event.preventDefault();
     props.sendToMain(userInput);
-
     refInput.current.scrollIntoView({
       behavior: "smooth",
       block: "center",
@@ -22,28 +21,22 @@ function MkdownInput(props) {
     setUserInput("");
   }
 
-  function enterKeyEvent() {
-    // if enter key is hit then will clear state of input
-    //  and send string to the out put
-    let keyCode = event.keyCode;
-    if (keyCode === 13) {
-      actionEnter();
-    }
-  }
-
   return (
-    <div className="userInput__container">
-      <EditorActions clearList={props.clearList} enterAction={actionEnter} />
-      <span className="userInput__helper">Text Input Below</span>
+    <form onSubmit={handleSubmit} className="userInput__container">
+      <label htmlFor="userEntryInput" className="userInput__helper">
+        Text Input Below
+      </label>
       <input
+        type="text"
+        name="userEntryInput"
+        value={userInput}
+        onChange={(e) => setUserInput(e.target.value)}
         ref={refInput}
         className="userInput__entryInput"
-        rows="2"
         placeholder="Add Content"
-        onKeyUp={enterKeyEvent}
-        onChange={(e) => setUserInput(e.target.value)}
-        value={userInput}
       />
+
+      <input type="submit" value="Submit" />
 
       <style jsx>{`
         .userInput__container {
@@ -89,7 +82,7 @@ function MkdownInput(props) {
           color: white;
         }
       `}</style>
-    </div>
+    </form>
   );
 }
 
@@ -149,9 +142,9 @@ function OneSheet() {
   ]);
 
   const upateMdList = (userMd) => {
-    function convertInput(userInput) {
+    function convertInput(userMd) {
       let converter = new showdown.Converter(),
-        html = converter.makeHtml(userInput);
+        html = converter.makeHtml(userMd);
       return html;
     }
     let convertedHtml = convertInput(userMd);
@@ -168,9 +161,8 @@ function OneSheet() {
       <main className="sheet__container">
         <div className="sheet">
           <MkdownOutput saveMdlines={mdInputList} />
-
-          <MkdownInput sendToMain={upateMdList} clearList={clearMkDownList} />
-
+          <EditorActions clearList={clearMkDownList} />
+          <MkdownInput sendToMain={upateMdList} />
           <EditorStats FullMkList={mdInputList} />
         </div>
       </main>

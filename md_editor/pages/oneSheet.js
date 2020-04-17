@@ -98,7 +98,11 @@ function MkdownOutput(props) {
     return (
       <ol>
         {userMarkdowns.map((mdUserLine, mdLineNum) => (
-          <MdCompileLine mdUserLine={mdUserLine} mdLineNum={mdLineNum} />
+          <MdCompileLine
+            key={mdLineNum}
+            mdUserLine={mdUserLine}
+            mdLineNum={mdLineNum}
+          />
         ))}
         <style jsx>{`
           ol {
@@ -135,13 +139,7 @@ function MkdownOutput(props) {
 }
 
 function OneSheet() {
-  const [mdInputList, updateMdInputList] = useState([
-    "",
-    "<p>one</p>",
-    "<p>two\ntwo</p>",
-    '<h2 id="nope">nope</h2>',
-    '<h1 id="heading1">heading 1</h1>',
-  ]);
+  const [mdInputList, updateMdInputList] = useState([]);
 
   const upateMdList = (userMd) => {
     function convertInput(userInput) {

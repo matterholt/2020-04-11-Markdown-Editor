@@ -24,6 +24,7 @@ export default function DocCounterCard(props) {
           flex-flow: column;
           align-items: center;
           min-width: 70px;
+          max-width: 100px;
           color: #243233;
           font-weight: 900;
           margin: 5px;

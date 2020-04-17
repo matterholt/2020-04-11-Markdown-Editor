@@ -1,11 +1,37 @@
 import React, { useState, useEffect } from "react";
 import DocCounterCard from "./DocCounterCard";
 
+function TagsInDocument(props) {
+  const tagValues = Object.keys(props.htmlTagGroup);
+
+  return (
+    <div>
+      <h3>{props.title}</h3>
+      {tagValues.map((tagName, ListID) => {
+        return (
+          <DocCounterCard
+            key={ListID}
+            countName={tagName}
+            countAmount={props.htmlTagGroup[tagName]}
+          />
+        );
+      })}
+      <style jsx>{`
+        div {
+          width: 100%;
+          border: black solid 1px;
+          display: flex;
+        }
+      `}</style>
+    </div>
+  );
+}
+
 export default function EditorActions(props) {
   const [documentRowCount, updateDocRowCount] = useState(0);
   const [documentWordCount, updateDocWordCount] = useState(0);
   const [documentLetterCount, updateLetterCount] = useState(0);
-  const [documentTags, updateDocTags] = useState([]);
+  const [documentTags, updateDocTags] = useState({});
 
   function htmlTags(mdString) {
     const htmlTag = /<(\w+)/.exec(mdString);
@@ -61,12 +87,20 @@ export default function EditorActions(props) {
     return GOAL;
   }
 
-  function tagOBject() {
+  function tagOBject(mdHtmlTags) {
     // make the tag
+    const tagsAmount = {};
+    for (let i = 1; i < mdHtmlTags.length; i++) {
+      if (mdHtmlTags[i] in tagsAmount) {
+        tagsAmount[mdHtmlTags[i]] += 1;
+      } else {
+        tagsAmount[mdHtmlTags[i]] = 1;
+      }
+    }
+    return tagsAmount;
   }
 
   useEffect(() => {
-    console.log(props.FullMkList);
     if (props.FullMkList.length != 0 && props.FullMkList[0] != undefined) {
       const removeEmptyIndex = props.FullMkList.filter((string) => {
         return string != "";
@@ -77,9 +111,11 @@ export default function EditorActions(props) {
       const htmlTagslist = replaceNewLine.map((htmlString) => {
         return htmlTags(htmlString);
       });
-      console.log(htmlTagslist);
 
+      const tagCounter = tagOBject(htmlTagslist);
       const docCounts = docStats(replaceNewLine);
+
+      updateDocTags(tagCounter);
       updateDocRowCount(props.FullMkList.length);
       updateDocWordCount(docCounts.wordCount);
       updateLetterCount(docCounts.letterCount);
@@ -88,23 +124,21 @@ export default function EditorActions(props) {
       updateDocWordCount(0);
       updateLetterCount(0);
     }
-  });
+  }, [props.FullMkList]);
 
   return (
     <div className="editor__stats">
       <DocCounterCard countName="Rows #" countAmount={documentRowCount} />
       <DocCounterCard countName="Word #" countAmount={documentWordCount} />
       <DocCounterCard countName="Letter #" countAmount={documentLetterCount} />
-      <div>
-        <DocCounterCard countName="Tags #" countAmount="T.B.D" />
-      </div>
+      <TagsInDocument title="Tags #" htmlTagGroup={documentTags} />
+
       <style jsx>{`
         .editor__stats {
           min-height: 200px;
           margin-top: 50px;
           background: linear-gradient(#f3f8f8, #243233);
           background: #f3f8f8;
-
           display: flex;
           justify-content: space-evenly;
           flex-wrap: wrap;

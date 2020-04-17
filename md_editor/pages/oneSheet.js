@@ -14,12 +14,14 @@ function MkdownInput(props) {
 
   function actionEnter() {
     props.sendToMain(userInput);
-    setUserInput("");
+
     refInput.current.scrollIntoView({
       behavior: "smooth",
       block: "center",
     });
+    setUserInput("");
   }
+
   function enterKeyEvent() {
     // if enter key is hit then will clear state of input
     //  and send string to the out put
@@ -28,20 +30,19 @@ function MkdownInput(props) {
       actionEnter();
     }
   }
+
   return (
     <div className="userInput__container">
       <EditorActions clearList={props.clearList} enterAction={actionEnter} />
-      <span className="userInput__helper">Add text Below</span>
-      <textarea
+      <span className="userInput__helper">Text Input Below</span>
+      <input
         ref={refInput}
         className="userInput__entryInput"
-        placeholder="ADD CONTENT"
         rows="2"
-        onKeyPress={enterKeyEvent}
+        placeholder="Add Content"
+        onKeyUp={enterKeyEvent}
+        onChange={(e) => setUserInput(e.target.value)}
         value={userInput}
-        onChange={(e) => {
-          setUserInput(e.target.value);
-        }}
       />
 
       <style jsx>{`
@@ -81,11 +82,11 @@ function MkdownInput(props) {
           overflow-wrap: break-word;
         }
         .userInput__helper {
-          font-size: 10px;
+          font-size: 12px;
           text-align: center;
           padding: 5px 0;
           background-color: #adb4b4;
-          color: gray;
+          color: white;
         }
       `}</style>
     </div>
@@ -139,7 +140,13 @@ function MkdownOutput(props) {
 }
 
 function OneSheet() {
-  const [mdInputList, updateMdInputList] = useState([]);
+  const [mdInputList, updateMdInputList] = useState([
+    "",
+    "<p>one</p>",
+    "<p>two\ntwo</p>",
+    '<h2 id="nope">nope</h2>',
+    '<h1 id="heading1">heading 1</h1>',
+  ]);
 
   const upateMdList = (userMd) => {
     function convertInput(userInput) {
@@ -152,7 +159,7 @@ function OneSheet() {
   };
 
   const clearMkDownList = () => {
-    updateMdInputList([undefined]);
+    updateMdInputList([]);
   };
 
   return (

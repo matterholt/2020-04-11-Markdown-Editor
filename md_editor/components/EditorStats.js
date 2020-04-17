@@ -3,6 +3,7 @@ import DocCounterCard from "./DocCounterCard";
 
 import docStats from "../logic/mdDocWordCount";
 import docTagCounter from "../logic/mdDocTagCount";
+import mdCleanUpList from "../logic/mdCleanUpList";
 
 function TagsInDocument(props) {
   const tagValues = Object.keys(props.htmlTagGroup);
@@ -32,34 +33,35 @@ function TagsInDocument(props) {
 
 export default function EditorActions(props) {
   // what if we put the clean list up here
+  const [docCheckedList, updateDocCheckList] = useState([]);
   const [documentRowCount, updateDocRowCount] = useState(0);
   const [documentWordCount, updateDocWordCount] = useState(0);
   const [documentLetterCount, updateLetterCount] = useState(0);
   const [documentTags, updateDocTags] = useState({});
 
   useEffect(() => {
-    if (props.FullMkList.length != 0 && props.FullMkList[0] != undefined) {
-      const removeEmptyIndex = props.FullMkList.filter((string) => {
-        return string != "";
-      });
-      const replaceNewLine = removeEmptyIndex.map((x) =>
-        x.replace(/(\r\n|\n|\r)/gm, " ")
-      );
+    if (props.FullMkList.length != 0) {
+      const mkDocListClean = mdCleanUpList(props.FullMkList);
+      updateDocCheckList(mkDocListClean);
+    } else {
+      updateDocRowCount(0);
+      updateDocWordCount(0);
+      updateLetterCount(0);
+      updateDocTags({});
+    }
+  }, [props.FullMkList]);
 
-      const tagCounter = docTagCounter(replaceNewLine);
-      const docCounts = docStats(replaceNewLine);
+  useEffect(() => {
+    if (docCheckedList.length != 0) {
+      const tagCounter = docTagCounter(docCheckedList);
+      const docCounts = docStats(docCheckedList);
 
       updateDocTags(tagCounter);
       updateDocRowCount(props.FullMkList.length);
       updateDocWordCount(docCounts.wordCount);
       updateLetterCount(docCounts.letterCount);
-    } else {
-      updateDocTags({});
-      updateDocRowCount(0);
-      updateDocWordCount(0);
-      updateLetterCount(0);
-    }
-  }, [props.FullMkList]);
+    } else [console.log("empty")];
+  }, [docCheckedList]);
 
   return (
     <div className="editor__stats">

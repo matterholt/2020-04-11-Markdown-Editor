@@ -41,9 +41,9 @@ function docStats(mdStrings) {
   const numbOfLetters = letterPerDoc(htmlInputString);
 
   const GOAL = {
-    rowCount: mdStrings.length,
-    wordCount: numbOfDocWords,
-    letterCount: numbOfLetters,
+    row: mdStrings.length,
+    word: numbOfDocWords,
+    letter: numbOfLetters,
   };
   return GOAL;
 }

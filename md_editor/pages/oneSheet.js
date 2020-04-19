@@ -29,7 +29,7 @@ function MkdownInput(props) {
       <input
         type="text"
         name="userEntryInput"
-        spellcheck="true"
+        spellCheck="true"
         value={userInput}
         onChange={(e) => setUserInput(e.target.value)}
         ref={refInput}
